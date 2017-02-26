@@ -2,6 +2,7 @@ defmodule Cards do
   @moduledoc """
     Provides methods for creating and handling a deck of cards.
   """
+
   def create_deck do
     values = ["Ace", "Two", "Three", "Four", "Five"]
     suits = ["Spades", "Clubs", "Hearts", "Diomonds"]
@@ -47,11 +48,17 @@ defmodule Cards do
     Enum.split(deck, hand_size)
   end
 
+  @doc """
+    Creates a file with the binary deck named `filename`
+  """
   def save(deck, filename) do
     binary = :erlang.term_to_binary(deck)
     File.write(filename, binary)
   end
 
+  @doc """
+    Loads the file named `filename` and returns the deck saved inside it.
+  """
   def load(filename) do
     case File.read(filename) do
       {:ok, binary} -> :erlang.binary_to_term(binary)
